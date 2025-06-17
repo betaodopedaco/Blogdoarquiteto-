@@ -4,6 +4,7 @@ const nav = document.querySelector('nav');
 
 mobileMenu.addEventListener('click', () => {
     nav.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
     
     // Animação do ícone do menu
     const bars = document.querySelectorAll('.mobile-menu div');
@@ -23,6 +24,7 @@ const navLinks = document.querySelectorAll('nav ul li a');
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         nav.classList.remove('active');
+        mobileMenu.classList.remove('active');
         
         // Resetar ícone do menu
         const bars = document.querySelectorAll('.mobile-menu div');
@@ -37,7 +39,7 @@ window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (window.scrollY > 50) {
         header.style.padding = '15px 40px';
-        header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+        header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
     } else {
         header.style.padding = '20px 40px';
         header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
@@ -71,7 +73,7 @@ if (contactForm) {
         const submitButton = this.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         
-        submitButton.textContent = 'Enviando...';
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
         submitButton.disabled = true;
         
         setTimeout(() => {
@@ -83,7 +85,17 @@ if (contactForm) {
     });
 }
 
-// Animações ao rolar
+// Efeito parallax na imagem do hero
+window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const heroImage = document.querySelector('.hero-image');
+    
+    if (heroImage) {
+        heroImage.style.transform = `scale(${1 + scrollPosition * 0.0005})`;
+    }
+});
+
+// Animação ao rolar
 window.addEventListener('scroll', revealOnScroll);
 
 function revealOnScroll() {
@@ -112,4 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Acionar animações iniciais
     revealOnScroll();
+    
+    // Adicionar efeito flutuante em elementos
+    const floatElements = document.querySelectorAll('.service-icon, .btn');
+    floatElements.forEach(el => {
+        el.classList.add('float');
+    });
 });
